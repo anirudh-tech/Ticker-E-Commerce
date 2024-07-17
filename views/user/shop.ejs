@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIKCER</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="/images/T.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/sign-up.css" />
+  <link rel="stylesheet" href="/css/verification.css">
+  <link rel="stylesheet" href="/css/log-in.css">
+  <link rel="stylesheet" href="/css/homepage.css">
+  <link rel="stylesheet" href="/css/userfooter.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Times New Roman:ital,wght@0,400;0,700;1,700&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Public Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spartan:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Sans:wght@700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doppio One:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto Slab:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abhaya Libre:wght@700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inder:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Imprima:wght@400&display=swap" />
+  <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              100: '#1E1E1E',
+              200: '#2D2D2D',
+              300: '#3D3D3D',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-dark-100 text-gray-200">
+  <header>
+    <nav class="bg-dark-200 p-0">
+      <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex-shrink-0">
+          <a href="/homepage" class="block">
+            <img src="/images/screenshot--272-removebgpreview-1@2x.png" class="h-[70px]" alt="Logo">
+          </a>
+        </div>
+
+        <div class="hidden md:flex items-center">
+          <input id="searchInput" type="text" placeholder="Search"
+            class="bg-dark-300 border-gray-600 text-gray-200 rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button id="searchButton" type="button"
+            class="bg-blue-600 text-white px-4 py-2 rounded-r hover:bg-blue-700 transition duration-300">Search</button>
+        </div>
+
+        <!-- ... (keep the menu toggle button the same) ... -->
+
+        <div class="hidden md:flex items-center space-x-4">
+          <a href="/homepage" class="text-gray-300 hover:text-white">Home</a>
+          <a href="/shop" class="text-gray-300 hover:text-white">Shop</a>
+          <a href="/wishlist" class="text-red-400 hover:text-red-300">
+            <i class="fa-solid fa-heart"></i>
+          </a>
+          <a href="/cart" class="text-blue-400 hover:text-blue-300">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+
+          <% if (user) { %>
+            <div class="relative group">
+              <button id="userMenuButton" class="flex items-center text-gray-300 hover:text-white">
+                <%= user.Username %> <i class="fa-solid fa-user ml-1"></i>
+              </button>
+              <div
+                class="absolute right-0 w-48 mt-2 py-2 bg-dark-200 rounded-md shadow-xl z-20 hidden group-hover:block">
+                <a href="/profile"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-300 hover:text-white">Profile</a>
+                <hr class="my-2 border-gray-600">
+                <a href="/logout" id="logoutLink"
+                  class="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-300 hover:text-white">Logout</a>
+              </div>
+            </div>
+            <% } else { %>
+              <a href="/signup" class="text-gray-300 hover:text-white">
+                <i class="fa-solid fa-user"></i><span class="ml-1">Signup</span>
+              </a>
+              <% } %>
+        </div>
+      </div>
+
+      <!-- Mobile menu (dark theme) -->
+      <div id="mobileMenu" class="md:hidden hidden bg-dark-200">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a href="/homepage"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-300">Home</a>
+          <a href="/shop"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-300">Shop</a>
+          <a href="/wishlist"
+            class="block px-3 py-2 rounded-md text-base font-medium text-red-400 hover:text-red-300 hover:bg-dark-300">Wishlist</a>
+          <a href="/cart"
+            class="block px-3 py-2 rounded-md text-base font-medium text-blue-400 hover:text-blue-300 hover:bg-dark-300">Cart</a>
+          <% if (user) { %>
+            <a href="/profile"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-300">Profile</a>
+            <a href="/logout" id="mobileLogoutLink"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-300">Logout</a>
+            <% } else { %>
+              <a href="/signup"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-300">Signup</a>
+              <% } %>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <section class="bg-gray-900 text-white min-h-screen">
+    <h1 class="text-center text-4xl font-bold py-8 text-red-500 shadow-lg shadow-green-500">
+      SHOP
+    </h1>
+    <button class="ml-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+      type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+      <i class="fa-solid fa-sliders mr-2"></i>
+      FILTERS
+    </button>
+
+    <div class="offcanvas offcanvas-start w-72 bg-gray-800" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+      aria-labelledby="staticBackdropLabel">
+      <div class="offcanvas-header border-b border-gray-700">
+        <h3 class="offcanvas-title text-xl font-bold text-white" id="staticBackdropLabel">FILTERS</h3>
+        <button type="button" class="text-gray-400 hover:text-white" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="offcanvas-body p-4">
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Category</h3>
+            <% categories.forEach(function(category) { %>
+              <div class="flex items-center mt-2">
+                <input type="checkbox" name="category" value="<%= category._id %>"
+                  class="form-checkbox h-5 w-5 text-blue-600">
+                <label class="ml-2 text-gray-300">
+                  <%= category.Name %>
+                </label>
+              </div>
+              <% }) %>
+          </div>
+
+          <div>
+            <h3 class="text-lg text-white font-semibold mb-2">Brands</h3>
+            <% brands.forEach(function(brand) { %>
+              <div class="flex items-center mt-2">
+                <input type="checkbox" name="brand" value="<%= brand._id %>"
+                  class="form-checkbox h-5 w-5 text-blue-600">
+                <label class="ml-2 text-gray-300">
+                  <%= brand.Name %>
+                </label>
+              </div>
+              <% }) %>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-2">Price Range</h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="radio" name="price" value="0-1000" class="form-radio h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-300">$0 - $1000</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="price" value="1001-5000" class="form-radio h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-300">$1001 - $5000</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="price" value="5001-10000" class="form-radio h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-300">$5001 - $10000</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="price" value="10001-and-above" class="form-radio h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-300">$10001 and above</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <button onclick="applyFilters(); $('#staticBackdrop').offcanvas('hide');"
+          class="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">Apply
+          Filters</button>
+      </div>
+    </div>
+  
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsContainer">
+        <% if (products && products.length> 0) { %>
+          <% products.forEach(function(product) { %>
+            <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+              <img src="/uploads/<%= product.images[0] %>" class="w-full h-64 object-cover"
+                alt="<%= product.ProductName %>" />
+              <div class="p-4 flex flex-col justify-between h-40">
+                <h6 class="text-lg font-semibold text-center text-white truncate">
+                  <%= product.ProductName %>
+                </h6>
+                <div class="mt-auto">
+                  <% if (product.AvailableQuantity===0) { %>
+                    <div class="bg-red-600 text-white text-center py-2 rounded">
+                      <p>Out of Stock</p>
+                    </div>
+                    <% } else { %>
+                      <p class="text-center text-gray-300 mb-2">Price ₹<%= product.Price %>
+                      </p>
+                      <a href="/product/<%= product._id %>"
+                        class="block w-full bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition duration-300">
+                        View Details
+                      </a>
+                      <% } %>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+              <% } else { %>
+                <% for (let i=0; i < 8; i++) { %>
+                  <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden animate-pulse">
+                    <div class="w-full h-64 bg-gray-700"></div>
+                    <div class="p-4 flex flex-col justify-between h-40">
+                      <div class="h-6 bg-gray-700 rounded w-3/4 mx-auto"></div>
+                      <div class="mt-auto">
+                        <div class="h-6 bg-gray-700 rounded w-1/2 mx-auto mb-2"></div>
+                        <div class="h-10 bg-gray-700 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% } %>
+      </div>
+
+      <% if (products && products.length> 0) { %>
+        <div class="flex justify-between items-center mt-8 text-gray-300">
+          <p>
+            Showing <%= (currentPage - 1) * perPage + 1 %>-
+              <% if(currentPage===totalPages) { %>
+                <%= totalCount %>
+                  <% } else { %>
+                    <%= currentPage * perPage %>
+                      <% } %>
+                        results from <%= totalCount %>
+          </p>
+          <div class="flex space-x-2">
+            <% if(currentPage !==1) { %>
+              <a href="?page=<%= currentPage-1 %>"
+                class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition duration-300">
+                Prev
+              </a>
+              <% } %>
+                <span class="px-4 py-2 bg-blue-600 rounded">
+                  <%= currentPage %>
+                </span>
+                <% if(currentPage !==totalPages) { %>
+                  <a href="?page=<%= currentPage+1 %>"
+                    class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition duration-300">
+                    Next
+                  </a>
+                  <% } %>
+          </div>
+        </div>
+        <% } else { %>
+          <p class="text-center text-gray-300 mt-8">Loading products...</p>
+          <% } %>
+    </div>
+  </section>
+  <script>
+    function getStoredFilters() {
+      const storedCategories = localStorage.getItem("selectedCategories");
+      const storedBrands = localStorage.getItem("selectedBrands");
+      const storedPrice = localStorage.getItem("selectedPrice");
+
+      return {
+        selectedCategories: storedCategories ? storedCategories.split(",") : [],
+        selectedBrands: storedBrands ? storedBrands.split(",") : [],
+        selectedPrice: storedPrice || null,
+      };
+    }
+
+    function applyFilters() {
+      const selectedCategories = getCheckedValues("category");
+      const selectedBrands = getCheckedValues("brand");
+      const selectedPrices = getSelectedValues("price");
+
+      localStorage.setItem("selectedCategories", selectedCategories.join(","));
+      localStorage.setItem("selectedBrands", selectedBrands.join(","));
+      localStorage.setItem("selectedPrice", selectedPrices || "");
+
+      const filtersURL = `/shop?categories=${selectedCategories.join(",")}&brands=${selectedBrands.join(",")}&prices=${selectedPrices}`;
+
+      $.ajax({
+        url: filtersURL,
+        type: "GET",
+        success: (response) => {
+          const productsContainer = $("#productsContainer");
+          productsContainer.empty();
+
+          response.products.forEach((product) => {
+            const productCard = `
+                      <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                          <img src="/uploads/${product.images[0]}" class="w-full h-64 object-cover" alt="${product.ProductName}" />
+                          <div class="p-4 flex flex-col justify-between h-40">
+                              <h6 class="text-lg font-semibold text-center text-white truncate">${product.ProductName}</h6>
+                              <div class="mt-auto">
+                                  ${product.AvailableQuantity === 0 ?
+                `<div class="bg-red-600 text-white text-center py-2 rounded">
+                                          <p>Out of Stock</p>
+                                      </div>` :
+                `<p class="text-center text-gray-300 mb-2">Price ₹${product.Price}</p>
+                                      <a href="/product/${product._id}" class="block w-full bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition duration-300">View Details</a>`
+              }
+                              </div>
+                          </div>
+                      </div>
+                  `;
+
+            productsContainer.append(productCard);
+          });
+        }
+      });
+      console.log(filtersURL);
+    }
+
+    function setCheckedValues() {
+      const storedFilters = getStoredFilters();
+
+      storedFilters.selectedCategories.forEach((category) => {
+        $(`input[name="category"][value="${category}"]`).prop("checked", true);
+      });
+
+      storedFilters.selectedBrands.forEach((brand) => {
+        $(`input[name="brand"][value="${brand}"]`).prop("checked", true);
+      });
+
+      if (storedFilters.selectedPrice) {
+        $(`input[name="price"][value="${storedFilters.selectedPrice}"]`).prop("checked", true);
+      }
+    }
+
+    // Call setCheckedValues on page load
+    $(document).ready(setCheckedValues);
+
+    function getCheckedValues(checkboxName) {
+      const checkboxes = document.querySelectorAll(`input[name="${checkboxName}"]:checked`);
+      const values = Array.from(checkboxes).map(checkbox => checkbox.value);
+      return values;
+    }
+
+    function getSelectedValues(name) {
+      const selectedRadio = document.querySelector(`input[name="${name}"]:checked`);
+      return selectedRadio ? selectedRadio.value : null;
+    }
+  </script>
+
+  <%- include('../layouts/footer') %>
